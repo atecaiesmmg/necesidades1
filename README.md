@@ -36,7 +36,7 @@ sudo apt upgrade -y
 ### 2. Instalar dependencias necesarias
 
 ```bash
-sudo apt install -y \
+apt install -y \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -48,27 +48,31 @@ sudo apt install -y \
 
 ```bash
 # Añadir la clave GPG oficial de Docker
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+```
 
+```bash
 # Añadir el repositorio de Docker
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
 
+```bash
 # Instalar Docker
-sudo apt update
-sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+apt update
+apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 ```
 
 ### 4. Configurar Docker
 
 ```bash
 # Iniciar Docker
-sudo systemctl start docker
-sudo systemctl enable docker
+systemctl start docker
+systemctl enable docker
 
 # Añadir usuario al grupo docker
-sudo usermod -aG docker $USER
+usermod -aG docker $USER
 ```
 
 ### 5. Clonar y configurar el proyecto
@@ -181,8 +185,8 @@ docker compose logs -f app
 
 1. **Error de permisos en la base de datos**
    ```bash
-   sudo chown -R 1000:1000 server/database
-   sudo chmod 755 server/database
+   chown -R 1000:1000 server/database
+   chmod 755 server/database
    ```
 
 2. **Error de conexión al puerto 80**
